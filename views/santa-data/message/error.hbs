@@ -19,22 +19,12 @@
     </header>
 
     <main>
-      <p class='bold'>Ho ho ho, what you want for christma?</p>
-
-      <form method='post' action='/santa-data/message'>
-        who are you?
-        <input name='userid' placeholder='charlie.brown' />
-        what do you want for christmas?
-        <textarea
-          name='wish'
-          rows='10'
-          cols='45'
-          maxlength='100'
-          placeholder='Gifts!'
-        ></textarea>
-        <br />
-        <button type='submit' id='submit-letter'>Send</button>
-      </form>
+      <p class='bold'>
+        There was an error submitting your message to santa:
+      </p>
+      <p>
+        {{errorDetails}}
+      </p>
     </main>
   </body>
 </html>
