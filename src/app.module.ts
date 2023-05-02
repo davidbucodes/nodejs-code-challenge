@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
-import { SantaDataModule } from './santa-data/santa-data.module';
+import { DatabaseModule } from './keyValueDatabase/keyValueDatabase.module';
+import { WishModule } from './wish/wish.module';
 
 @Module({
-  imports: [SantaDataModule],
+  imports: [WishModule, DatabaseModule, WishModule],
   controllers: [AppController],
 })
 export class AppModule {}
