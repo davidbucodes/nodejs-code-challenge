@@ -10,6 +10,5 @@ export class DatabaseService {
 
   set<T>(key: string, value: T) {
     this.inMemoryDatabase[key] = value;
-    console.log('set', key, value);
   }
 }
