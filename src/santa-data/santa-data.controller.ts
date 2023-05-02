@@ -8,13 +8,23 @@ export class SantaDataController {
   constructor(private santaDataService: SantaDataService) {}
 
   @Post('message')
-  sendMessage(@Body() sendMessageDto: SendMessageDto, @Res() res: Response) {
+  async sendMessage(
+    @Body() sendMessageDto: SendMessageDto,
+    @Res() res: Response,
+  ) {
     console.log(sendMessageDto);
-    let isError = false;
+    let errorMessage = '';
 
-    if (isError) {
+    try {
+      await this.santaDataService.sendMessage(sendMessageDto);
+    } catch (e) {
+      console.log(e);
+      errorMessage = e.message;
+    }
+
+    if (errorMessage) {
       return res.render(this.santaDataService.getMessageErrorViewName(), {
-        errorDetails: 'General error',
+        errorDetails: errorMessage,
       });
     } else {
       return res.render(this.santaDataService.getMessageSuccessViewName());
