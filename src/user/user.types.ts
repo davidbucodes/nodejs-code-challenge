@@ -8,3 +8,7 @@ export type UserProfile = {
   address: string;
   birthdate: string;
 };
+
+export type Environment = {
+  USER_API_BASE_URL: string;
+};
