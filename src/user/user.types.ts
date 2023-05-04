@@ -9,6 +9,6 @@ export type UserProfile = {
   birthdate: string;
 };
 
-export type Environment = {
+export type EnvironmentVariables = {
   USER_API_BASE_URL: string;
 };

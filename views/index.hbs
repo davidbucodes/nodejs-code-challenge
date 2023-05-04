@@ -10,7 +10,7 @@
     <meta charset='utf-8' />
     <meta name='viewport' content='width=device-width, initial-scale=1' />
     <link rel='stylesheet' href='/style.css' />
-    <script src='/client.js' defer></script>
+    <script src='/index.js' defer></script>
   </head>
 
   <body>
@@ -21,11 +21,25 @@
     <main>
       <p class='bold'>Ho ho ho, what you want for christma?</p>
 
-      <form method='post' action='/wish'>
+      <form
+        method='post'
+        id='santa-form'
+        onsubmit='return validateForm()'
+        action='/wish'
+      >
         who are you?
-        <input name='name' placeholder='charlie.brown' />
+        <input
+          required
+          name='name'
+          minlength='1'
+          maxlength='1'
+          placeholder='charlie.brown'
+        />
         what do you want for christmas?
         <textarea
+          required
+          minlength='1'
+          maxlength='1'
           name='wish'
           rows='10'
           cols='45'

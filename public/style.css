@@ -1,12 +1,9 @@
-/* styles */
-/* called by your view template */
-
 * {
   box-sizing: border-box;
 }
 
 body {
-  font-family: "Benton Sans", "Helvetica Neue", helvetica, arial, sans-serif;
+  font-family: 'Benton Sans', 'Helvetica Neue', helvetica, arial, sans-serif;
   margin: 2em;
 }
 
@@ -23,7 +20,8 @@ p {
   max-width: 600px;
 }
 
-input, textarea {
+input,
+textarea {
   display: block;
   margin-bottom: 10px;
   padding: 5px;
