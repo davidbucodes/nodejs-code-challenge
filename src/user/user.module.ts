@@ -5,7 +5,7 @@ import { UserService } from './user.service';
 
 @Module({
   providers: [UserService],
-  imports: [ConfigModule, HttpModule],
   exports: [UserService],
+  imports: [ConfigModule.forRoot(), HttpModule],
 })
 export class UserModule {}
