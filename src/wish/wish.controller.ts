@@ -9,13 +9,11 @@ export class WishController {
 
   @Post()
   async createWish(@Body() createWishDto: CreateWishDto, @Res() res: Response) {
-    console.log(createWishDto);
     let errorMessage = '';
 
     try {
       await this.wishService.createWish(createWishDto);
     } catch (e) {
-      console.log(e);
       errorMessage = e.message;
     }
 

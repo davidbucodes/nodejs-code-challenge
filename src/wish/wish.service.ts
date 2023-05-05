@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Cron } from '@nestjs/schedule';
 import { DatabaseService } from 'src/keyValueDatabase/keyValueDatabase.service';
 import { SmtpService } from 'src/smtp/smtp.service';
+import { SendEmailRequest } from 'src/smtp/smtp.types';
 import { UserService } from 'src/user/user.service';
 import { CreateWishDto as SendWishDto, Wish } from 'src/wish/wish.types';
 
@@ -18,28 +19,10 @@ export class WishService {
     const wishes = this.databaseService.get<Wish[]>('wishes') || [];
 
     if (!wishes.length) {
-      console.log('No not sent wishes');
       return;
     }
 
-    this.smtpService.sendEmail({
-      sender: 'do_not_reply@northpole.com',
-      sendTo: 'santa@northpole.com',
-      title: 'New wishes arrived!',
-      content: [
-        'These are the new wishes:',
-        wishes
-          .map((wish, index) =>
-            [
-              `Wish number #${index + 1}`,
-              `Name: ${wish.name}`,
-              `Address: ${wish.address}`,
-              `Wish content: \n${wish.wish}\n`,
-            ].join('\n'),
-          )
-          .join('\n'),
-      ].join('\n'),
-    });
+    this.smtpService.sendEmail(this.generateWishesEmail(wishes));
     this.databaseService.set<Wish[]>('wishes', []);
   }
 
@@ -79,5 +62,27 @@ export class WishService {
 
   getCreateWishSuccessViewName() {
     return 'wish/create/success';
+  }
+
+  private generateWishesEmail(wishes: Wish[]): SendEmailRequest {
+    return {
+      sender: 'do_not_reply@northpole.com',
+      sendTo: 'santa@northpole.com',
+      title: 'New wishes arrived!',
+      content: [
+        'These are the new wishes:',
+        wishes
+          .map((wish, index) =>
+            [
+              `Wish number #${index + 1}`,
+              `Name: ${wish.name}`,
+              `Address: ${wish.address}`,
+              `Wish content:`,
+              wish.wish,
+            ].join('\n'),
+          )
+          .join('\n---\n'),
+      ].join('\n'),
+    };
   }
 }

@@ -24,8 +24,8 @@ describe('DatabaseService', () => {
   });
 
   describe('get', () => {
-    it('should set at the database', () => {
-      service['inMemoryDatabase']['test'] = 'test';
+    it('should get from the database', () => {
+      service.set('test', 'test');
       expect(service.get('test')).toEqual('test');
     });
   });
