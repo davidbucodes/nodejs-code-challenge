@@ -1,7 +1,7 @@
 import { Body, Controller, Post, Res } from '@nestjs/common';
 import { Response } from 'express';
-import { WishService } from 'src/wish/wish.service';
-import { CreateWishDto } from 'src/wish/wish.types';
+import { WishService } from '../wish/wish.service';
+import { CreateWishDto } from '../wish/wish.types';
 
 @Controller('wish')
 export class WishController {
@@ -18,9 +18,11 @@ export class WishController {
     }
 
     if (errorMessage) {
-      return res.render(this.wishService.getCreateWishErrorViewName(), {
-        errorMessage,
-      });
+      return res
+        .status(400)
+        .render(this.wishService.getCreateWishErrorViewName(), {
+          errorMessage,
+        });
     } else {
       return res.render(this.wishService.getCreateWishSuccessViewName());
     }

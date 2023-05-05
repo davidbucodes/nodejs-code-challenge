@@ -3,9 +3,9 @@ import { ConfigModule } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
 import { AxiosResponse } from 'axios';
 import { Observable, of } from 'rxjs';
-import { User, UserProfile } from 'src/user/user.types';
 import { userProfiles, users } from '../../test/mocks/data/user';
 import { httpModuleMock } from '../../test/mocks/services/http';
+import { User, UserProfile } from '../user/user.types';
 import { UserService } from './user.service';
 
 describe('UserService', () => {

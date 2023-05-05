@@ -1,12 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { DatabaseService } from 'src/keyValueDatabase/keyValueDatabase.service';
-import { SmtpService } from 'src/smtp/smtp.service';
-import { UserService } from 'src/user/user.service';
 import { email } from '../../test/mocks/data/email';
 import { wishes } from '../../test/mocks/data/wish';
 import { databaseServiceMock } from '../../test/mocks/services/database';
 import { smtpServiceMock } from '../../test/mocks/services/smtp';
 import { userServiceMock } from '../../test/mocks/services/user';
+import { DatabaseService } from '../keyValueDatabase/keyValueDatabase.service';
+import { SmtpService } from '../smtp/smtp.service';
+import { UserService } from '../user/user.service';
 import { WishService } from './wish.service';
 
 describe('WishService', () => {

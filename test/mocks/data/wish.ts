@@ -1,4 +1,4 @@
-import { Wish } from 'src/wish/wish.types';
+import { Wish } from '../../../src/wish/wish.types';
 
 export const wishes: Wish[] = [
   {

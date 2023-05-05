@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { WishService } from 'src/wish/wish.service';
 import { wishes } from '../../test/mocks/data/wish';
 import { responseMock } from '../../test/mocks/objects/response';
 import { wishServiceMock } from '../../test/mocks/services/wish';
+import { WishService } from '../wish/wish.service';
 import { WishController } from './wish.controller';
 
 describe('WishController', () => {

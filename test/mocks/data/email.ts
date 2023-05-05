@@ -1,4 +1,4 @@
-import { SendEmailRequest } from 'src/smtp/smtp.types';
+import { SendEmailRequest } from '../../../src/smtp/smtp.types';
 
 export const email: SendEmailRequest = {
   content: `These are the new wishes:

@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import * as moment from 'moment';
 import { lastValueFrom } from 'rxjs';
-import { EnvironmentVariables, User, UserProfile } from 'src/user/user.types';
+import { EnvironmentVariables, User, UserProfile } from '../user/user.types';
 
 @Injectable()
 export class UserService {

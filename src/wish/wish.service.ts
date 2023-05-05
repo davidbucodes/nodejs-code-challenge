@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { Cron } from '@nestjs/schedule';
-import { DatabaseService } from 'src/keyValueDatabase/keyValueDatabase.service';
-import { SmtpService } from 'src/smtp/smtp.service';
-import { SendEmailRequest } from 'src/smtp/smtp.types';
-import { UserService } from 'src/user/user.service';
-import { CreateWishDto as SendWishDto, Wish } from 'src/wish/wish.types';
+import { DatabaseService } from '../keyValueDatabase/keyValueDatabase.service';
+import { SmtpService } from '../smtp/smtp.service';
+import { SendEmailRequest } from '../smtp/smtp.types';
+import { UserService } from '../user/user.service';
+import { CreateWishDto as SendWishDto, Wish } from '../wish/wish.types';
 
 @Injectable()
 export class WishService {

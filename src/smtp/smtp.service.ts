@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { SendEmailRequest } from 'src/smtp/smtp.types';
+import { SendEmailRequest } from '../smtp/smtp.types';
 
 @Injectable()
 export class SmtpService {

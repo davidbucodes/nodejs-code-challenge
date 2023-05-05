@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { SendEmailRequest } from 'src/smtp/smtp.types';
+import { SendEmailRequest } from '../smtp/smtp.types';
 import { SmtpService } from './smtp.service';
 
 describe('SmtpService', () => {

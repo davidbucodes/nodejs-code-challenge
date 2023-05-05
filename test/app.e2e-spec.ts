@@ -1,24 +1,62 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
-import { AppModule } from './../src/app.module';
+import { app } from './setup/e2e';
 
 describe('AppController (e2e)', () => {
-  let app: INestApplication;
-
-  beforeEach(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [AppModule],
-    }).compile();
-
-    app = moduleFixture.createNestApplication();
-    await app.init();
-  });
-
   it('/ (GET)', () => {
-    return request(app.getHttpServer())
-      .get('/')
-      .expect(200)
-      .expect('Hello World!');
+    return request(app.getHttpServer()).get('/').expect(200)
+      .expect(`<html lang='en'>
+  <head>
+    <title>Santa Data</title>
+    <link
+      id='favicon'
+      rel='icon'
+      href='https://glitch.com/edit/favicon-app.ico'
+      type='image/x-icon'
+    />
+    <meta charset='utf-8' />
+    <meta name='viewport' content='width=device-width, initial-scale=1' />
+    <link rel='stylesheet' href='/style.css' />
+    <script src='/index.js' defer></script>
+  </head>
+
+  <body>
+    <header>
+      <h1>A letter to Santa</h1>
+    </header>
+
+    <main>
+      <p class='bold'>Ho ho ho, what you want for christma?</p>
+
+      <form
+        method='post'
+        id='santa-form'
+        onsubmit='return validateForm()'
+        action='/wish'
+      >
+        who are you?
+        <input
+          required
+          name='name'
+          minlength='1'
+          maxlength='1'
+          placeholder='charlie.brown'
+        />
+        what do you want for christmas?
+        <textarea
+          required
+          minlength='1'
+          maxlength='1'
+          name='wish'
+          rows='10'
+          cols='45'
+          maxlength='100'
+          placeholder='Gifts!'
+        ></textarea>
+        <br />
+        <button type='submit' id='submit-letter'>Send</button>
+      </form>
+    </main>
+  </body>
+</html>`);
   });
 });

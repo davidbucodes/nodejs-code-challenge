@@ -1,4 +1,4 @@
-import { User, UserProfile } from 'src/user/user.types';
+import { User, UserProfile } from '../../../src/user/user.types';
 
 export const users: User[] = [
   {
