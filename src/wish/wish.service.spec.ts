@@ -1,4 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { AxiosResponse } from 'axios';
+import { User, UserProfile } from '../../src/user/user.types';
 import { email } from '../../test/mocks/data/email';
 import { wishes } from '../../test/mocks/data/wish';
 import { databaseServiceMock } from '../../test/mocks/services/database';
@@ -61,6 +63,102 @@ describe('WishService', () => {
 
         expect(databaseService.set).toHaveBeenCalledTimes(1);
         expect(databaseService.set).toHaveBeenCalledWith('wishes', []);
+      });
+    });
+  });
+
+  describe('createWish', () => {
+    describe('user not registered', () => {
+      it('should throw an error', async () => {
+        jest
+          .spyOn(userService, 'getUsers')
+          .mockResolvedValue({ data: [] } as AxiosResponse<User[]>);
+        jest
+          .spyOn(userService, 'getUserProfiles')
+          .mockResolvedValue({ data: [] } as AxiosResponse<UserProfile[]>);
+
+        expect(async () => await service.createWish(wishes[0])).rejects.toThrow(
+          "You're are not registered, so we could not deliver you wish.",
+        );
+      });
+    });
+
+    describe('user not at allowed age', () => {
+      it('should throw an error', async () => {
+        const wish = wishes[0];
+        jest.spyOn(userService, 'getUsers').mockResolvedValue({
+          data: [
+            {
+              uid: 'uid',
+              username: wish.name,
+            },
+          ],
+        } as AxiosResponse<User[]>);
+        jest.spyOn(userService, 'getUserProfiles').mockResolvedValue({
+          data: [
+            {
+              userUid: 'uid',
+              birthdate: 'birthdate',
+            },
+          ],
+        } as AxiosResponse<UserProfile[]>);
+        jest.spyOn(userService, 'calculateAge').mockReturnValue(20);
+
+        expect(async () => await service.createWish(wish)).rejects.toThrow(
+          'Sending a wish is allowed only under 10 years old.',
+        );
+      });
+    });
+
+    describe('user is valid to create wishes', () => {
+      const wish = wishes[0];
+      const existingWishAtDatabase = wishes[1];
+      const user: User = {
+        uid: 'uid',
+        username: wish.name,
+      };
+      const userProfile: UserProfile = {
+        userUid: 'uid',
+        birthdate: 'birthdate',
+        address: 'address',
+      };
+      const expectedWish = {
+        name: user.username,
+        address: userProfile.address,
+        wish: wish.wish,
+      };
+
+      beforeEach(() => {
+        jest.spyOn(userService, 'getUsers').mockResolvedValue({
+          data: [user],
+        } as AxiosResponse<User[]>);
+        jest.spyOn(userService, 'getUserProfiles').mockResolvedValue({
+          data: [userProfile],
+        } as AxiosResponse<UserProfile[]>);
+        jest.spyOn(userService, 'calculateAge').mockReturnValue(1);
+      });
+
+      it('should create the wish successfully', async () => {
+        await service.createWish(wish);
+
+        expect(databaseService.set).toHaveBeenCalledTimes(1);
+        expect(databaseService.set).toHaveBeenCalledWith('wishes', [
+          expectedWish,
+        ]);
+      });
+
+      it('should add the wish to the other wishes collection correctly', async () => {
+        jest
+          .spyOn(databaseService, 'get')
+          .mockImplementationOnce(() => [existingWishAtDatabase]);
+
+        await service.createWish(wish);
+
+        expect(databaseService.set).toHaveBeenCalledTimes(1);
+        expect(databaseService.set).toHaveBeenCalledWith('wishes', [
+          existingWishAtDatabase,
+          expectedWish,
+        ]);
       });
     });
   });

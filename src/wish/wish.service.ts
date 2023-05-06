@@ -43,7 +43,7 @@ export class WishService {
 
     const age = this.userService.calculateAge(userProfile.birthdate);
     if (age >= 10) {
-      throw new Error('Sending a wish allowed under 10 years old.');
+      throw new Error('Sending a wish is allowed only under 10 years old.');
     }
 
     const wish: Wish = {

@@ -33,6 +33,8 @@ describe('WishController', () => {
 
         await controller.createWish(wish, responseMock);
 
+        expect(responseMock.status).toHaveBeenCalledTimes(1);
+        expect(responseMock.status).toHaveBeenCalledWith(400);
         expect(service.getCreateWishErrorViewName).toHaveBeenCalledTimes(1);
         expect(service.getCreateWishSuccessViewName).not.toHaveBeenCalled();
       });
@@ -44,6 +46,7 @@ describe('WishController', () => {
 
         await controller.createWish(wish, responseMock);
 
+        expect(responseMock.status).toHaveBeenCalledTimes(0);
         expect(service.getCreateWishSuccessViewName).toHaveBeenCalledTimes(1);
         expect(service.getCreateWishErrorViewName).not.toHaveBeenCalled();
       });

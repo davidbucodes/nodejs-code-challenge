@@ -1,5 +1,8 @@
 import { Response } from 'express';
 
-export const responseMock = {
-  render: jest.fn(),
-} as Partial<Response> as Response;
+const responseMock = {} as Partial<Response> as Response;
+
+responseMock.render = jest.fn().mockReturnValue(responseMock);
+responseMock.status = jest.fn().mockReturnValue(responseMock);
+
+export { responseMock };

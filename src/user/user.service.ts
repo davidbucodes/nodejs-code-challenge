@@ -1,6 +1,7 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { AxiosResponse } from 'axios';
 import * as moment from 'moment';
 import { lastValueFrom } from 'rxjs';
 import { EnvironmentVariables, User, UserProfile } from '../user/user.types';
@@ -20,14 +21,14 @@ export class UserService {
     return moment().diff(moment(birthdate, 'YYYY/DD/MM'), 'years');
   }
 
-  async getUsers() {
+  async getUsers(): Promise<AxiosResponse<User[]>> {
     const result = this.httpService.get<User[]>(
       `${this.userApiBaseUrl}/users.json`,
     );
     return lastValueFrom(result);
   }
 
-  async getUserProfiles() {
+  async getUserProfiles(): Promise<AxiosResponse<UserProfile[]>> {
     const result = this.httpService.get<UserProfile[]>(
       `${this.userApiBaseUrl}/userProfiles.json`,
     );
