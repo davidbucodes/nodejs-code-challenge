@@ -14,7 +14,11 @@ const config: Config = {
   moduleNameMapper: {
     '^src/(.*)$': '<rootDir>/$1',
   },
-  coveragePathIgnorePatterns: ['.*\\.module\\.ts', 'main\\.ts'],
+  coveragePathIgnorePatterns: [
+    '.*\\.module\\.ts',
+    'main\\.ts',
+    '.*\\.client\\.ts',
+  ],
 };
 
 export default config;

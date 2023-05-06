@@ -1,16 +1,26 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { SendEmailRequest } from '../smtp/smtp.types';
+import { smtpClientMock } from '../../test/mocks/clients/smtpClient';
+import { SendEmailRequest, SmtpClient } from '../smtp/smtp.types';
+import { SMTP_CLIENT } from './smtp.consts';
 import { SmtpService } from './smtp.service';
 
 describe('SmtpService', () => {
   let service: SmtpService;
+  let client: SmtpClient;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [SmtpService],
+      providers: [
+        SmtpService,
+        {
+          provide: SMTP_CLIENT,
+          useValue: smtpClientMock,
+        },
+      ],
     }).compile();
 
     service = module.get<SmtpService>(SmtpService);
+    client = module.get<SmtpClient>(SMTP_CLIENT);
   });
 
   it('should be defined', () => {
@@ -18,11 +28,7 @@ describe('SmtpService', () => {
   });
 
   describe('sendEmail', () => {
-    beforeEach(() => {
-      console.log = jest.fn();
-    });
-
-    it('should send an email', () => {
+    it('should send an email with a client', () => {
       const emailToSend: SendEmailRequest = {
         sendTo: 'sendTo',
         sender: 'sender',
@@ -32,8 +38,8 @@ describe('SmtpService', () => {
 
       service.sendEmail(emailToSend);
 
-      expect(console.log).toBeCalledTimes(1);
-      expect(console.log).toBeCalledWith('Email sent, details:', emailToSend);
+      expect(client.sendEmail).toBeCalledTimes(1);
+      expect(client.sendEmail).toBeCalledWith(emailToSend);
     });
   });
 });

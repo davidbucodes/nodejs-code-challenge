@@ -1,9 +1,12 @@
-import { Injectable } from '@nestjs/common';
-import { SendEmailRequest } from '../smtp/smtp.types';
+import { Inject, Injectable } from '@nestjs/common';
+import { SMTP_CLIENT } from 'src/smtp/smtp.consts';
+import { SendEmailRequest, SmtpClient } from '../smtp/smtp.types';
 
 @Injectable()
 export class SmtpService {
-  sendEmail(sendEmailRequest: SendEmailRequest) {
-    console.log('Email sent, details:', sendEmailRequest);
+  constructor(@Inject(SMTP_CLIENT) private readonly smtpClient: SmtpClient) {}
+
+  async sendEmail(sendEmailRequest: SendEmailRequest) {
+    await this.smtpClient.sendEmail(sendEmailRequest);
   }
 }

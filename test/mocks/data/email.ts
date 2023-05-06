@@ -20,6 +20,6 @@ Address: address3
 Wish content:
 wish3`,
   sendTo: 'santa@northpole.com',
-  sender: 'do_not_reply@northpole.com',
+  sender: '"North Pole" <do_not_reply@northpole.com>',
   title: 'New wishes arrived!',
 };

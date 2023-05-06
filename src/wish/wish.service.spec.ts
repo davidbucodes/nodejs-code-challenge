@@ -1,3 +1,4 @@
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
 import { AxiosResponse } from 'axios';
 import { User, UserProfile } from '../../src/user/user.types';
@@ -10,12 +11,14 @@ import { DatabaseService } from '../keyValueDatabase/keyValueDatabase.service';
 import { SmtpService } from '../smtp/smtp.service';
 import { UserService } from '../user/user.service';
 import { WishService } from './wish.service';
+import { EnvironmentVariables } from './wish.types';
 
 describe('WishService', () => {
   let service: WishService;
   let databaseService: DatabaseService;
   let smtpService: SmtpService;
   let userService: UserService;
+  let configService: ConfigService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -25,12 +28,24 @@ describe('WishService', () => {
         { provide: SmtpService, useValue: smtpServiceMock },
         { provide: UserService, useValue: userServiceMock },
       ],
+      imports: [ConfigModule.forRoot()],
     }).compile();
 
     service = module.get<WishService>(WishService);
     databaseService = module.get<DatabaseService>(DatabaseService);
     smtpService = module.get<SmtpService>(SmtpService);
     userService = module.get<UserService>(UserService);
+    configService = module.get<ConfigService>(ConfigService);
+
+    jest.spyOn(configService, 'get').mockImplementation((key) => {
+      return (
+        {
+          WISH_EMAIL_SENDER_ADDRESS:
+            '"North Pole" <do_not_reply@northpole.com>',
+          WISH_EMAIL_SEND_TO_ADDRESS: 'santa@northpole.com',
+        } as EnvironmentVariables
+      )[key];
+    });
   });
 
   it('should be defined', () => {
