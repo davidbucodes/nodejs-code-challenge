@@ -1,73 +1,39 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# NodeJS Code Challenge
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Introduction
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+This project implements a wish sending system.
 
-## Description
+A wish could be sent if the user is registered and at the allowed age.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+The users' data source is the `https://raw.githubusercontent.com/alj-devops/santa-data/master` website.
 
-## Installation
+## Code Frameworks
 
-```bash
-$ npm install
-```
+### API management and views rendering
 
-## Running the app
+- `NestJS`: This project utilizes the NestJS framework to define the API routes and used modules.
+- `Handlebars`: The UI views are rendered using the Handlebars package.
 
-```bash
-# development
-$ npm run start
+### Testing frameworks
 
-# watch mode
-$ npm run start:dev
+- `Jest`: Testing framework that manages the tests lifecycle. Tests code coverage is available at the `./coverage/lcov-report/index.html` file after running the coverage tests.
 
-# production mode
-$ npm run start:prod
-```
+### Code standard frameworks
 
-## Test
+- `Eslint`: Framework used to various apply code standards.
+- `Prettier`: Framework used to apply readability related code standards.
 
-```bash
-# unit tests
-$ npm run test
+## NPM scripts
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+- Launching the app: `npm run start`
+- Building the app: `npm run build`
+- Launching the app (development mode): `npm run start:dev`
+- Launching the Storybook app: `npm run storybook`
+- Building the Storybook app: `npm run build-storybook`
+- Running the tests: `npm run test`
+- Running the tests in watch mode: `npm run test:watch`
+- Running the tests and collect tests coverage: `npm run test:cov`
+- Running the E2E tests: `npm run test:e2e`
+- Modifying the code with the Prettier framework: `npm run format`
+- Modifying the code with the Eslint framework: `npm run lint`
